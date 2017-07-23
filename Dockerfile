@@ -25,7 +25,7 @@ RUN cd /inspircd && \
 
 RUN apk del gcc g++ make git perl perl-net-ssleay perl-io-socket-ssl perl-libwww 
 
-VOLUME ["/inspircd/conf"]
+#VOLUME ["/inspircd/conf"]
 
 #USER inspircd
 
