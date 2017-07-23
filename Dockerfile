@@ -36,7 +36,7 @@ RUN chmod -R 777 /var/run
 
 #USER inspircd
 
-EXPOSE 6667 6697
+EXPOSE 6667 6667
 
 HEALTHCHECK CMD  /usr/bin/nc 127.0.0.1 6667 < /dev/null || exit 1
 
