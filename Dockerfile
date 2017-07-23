@@ -9,14 +9,25 @@ RUN  mkdir -p /src && \
      cd /src && \
      git clone https://github.com/inspircd/inspircd.git /inspircd
 
-RUN cd /inspircd && ./configure --disable-interactive --prefix=/inspircd/ --uid 10000 --enable-gnutls && \  
-    make && \
-    make install && \
-    apk del gcc g++ make git perl perl-net-ssleay perl-io-socket-ssl perl-libwww 
+RUN adduser -S irc
+
+RUN cd /inspircd && \
+    git checkout insp20
+
+RUN cd /inspircd && \
+    ./configure --disable-interactive --prefix=/inspircd/ --uid 10000
+
+RUN cd /inspircd && \
+    make
+
+RUN cd /inspircd && \
+    make install
+
+RUN apk del gcc g++ make git perl perl-net-ssleay perl-io-socket-ssl perl-libwww 
 
 VOLUME ["/inspircd/conf"]
 
-USER inspircd
+#USER inspircd
 
 EXPOSE 6667 6697
 
