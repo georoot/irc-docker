@@ -30,6 +30,7 @@ RUN mkdir -p /inspircd/conf/
 COPY ./irc.conf /inspircd/conf/inspircd.conf
 
 RUN chmod -R 777 /inspircd/logs
+RUN chmod -R 777 /var/run
 
 #VOLUME ["/inspircd/conf"]
 
