@@ -25,6 +25,12 @@ RUN cd /inspircd && \
 
 RUN apk del gcc g++ make git perl perl-net-ssleay perl-io-socket-ssl perl-libwww 
 
+RUN mkdir -p /inspircd/conf/
+
+COPY ./irc.conf /inspircd/conf/inspircd.conf
+
+RUN chmod -R 777 /inspircd/logs
+
 #VOLUME ["/inspircd/conf"]
 
 #USER inspircd
@@ -32,6 +38,8 @@ RUN apk del gcc g++ make git perl perl-net-ssleay perl-io-socket-ssl perl-libwww
 EXPOSE 6667 6697
 
 HEALTHCHECK CMD  /usr/bin/nc 127.0.0.1 6667 < /dev/null || exit 1
+
+USER irc
 
 ENTRYPOINT ["/inspircd/bin/inspircd"]  
 CMD ["--nofork"]
