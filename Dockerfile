@@ -1,20 +1,20 @@
 FROM alpine:latest
 
+WORKDIR /inspircd/
+
 RUN apk update && apk add gcc g++ make git gnutls gnutls-dev gnutls-c++ \  
        pkgconfig perl perl-net-ssleay perl-io-socket-ssl perl-libwww
 
 RUN  mkdir -p /src && \  
      cd /src && \
-     git clone https://github.com/inspircd/inspircd.git inspircd
+     git clone https://github.com/inspircd/inspircd.git /inspircd
 
-RUN ./configure --disable-interactive --prefix=/inspircd/ --uid 10000 --enable-gnutls && \  
+RUN cd /inspircd && ./configure --disable-interactive --prefix=/inspircd/ --uid 10000 --enable-gnutls && \  
     make && \
     make install && \
     apk del gcc g++ make git perl perl-net-ssleay perl-io-socket-ssl perl-libwww 
 
 VOLUME ["/inspircd/conf"]
-
-WORKDIR /inspircd/
 
 USER inspircd
 
